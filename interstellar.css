@@ -2,7 +2,7 @@ body {
   margin: 0;
   background: black;
   overflow: hidden;
-  cursor: url('./spaceship.png'), default;
+  cursor: url("./spaceship_small.png"), auto;
 }
 
 canvas {
