@@ -10,11 +10,19 @@ let centerY = h / 2;
 
 ctx.clearRect(0, 0, w, h);
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i <1000; i++) {
     const x = Math.random() * w;
     const y = Math.random() * h;
     const alpha = Math.random();
-    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+    const colors = [
+        `rgba(255,255,255,${alpha})`, // white
+        `rgba(100,180,255,${alpha})`, // blue
+        `rgba(255,120,80,${alpha})`   // red/orange
+    ];
+    ctx.save();
+    ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+    ctx.shadowColor = ctx.fillStyle;
+    ctx.shadowBlur = 10;
     const radiusX = 1 + Math.random() * 0.2;
     const radiusY = 1 + Math.random() * 0.2;
     ctx.beginPath();
@@ -22,57 +30,56 @@ for (let i = 0; i < 100; i++) {
     ctx.fill();
 }
 
-// function drawSpiralGalaxy(cx, cy, arms = 5, starsPerArm = 400, armSpread = 0.5, galaxyRadius = Math.min(w, h) * 0.38) {
-//     for (let arm = 0; arm < arms; arm++) {
-//         const armAngle = (2 * Math.PI / arms) * arm;
-//         for (let i = 0; i < starsPerArm; i++) {
-//             const t = i / starsPerArm;
-//             // Spiral equation: angle increases with radius for clear arms
-//             const spiralAngle = armAngle + t * 4.5 * Math.PI;
-//             // Small random offset to keep arms visible but natural
-//             const angle = spiralAngle + (Math.random() - 0.5) * armSpread;
-//             const radius = t * galaxyRadius * (0.85 + 0.15 * Math.random());
-//             const x = cx + Math.cos(angle) * radius;
-//             const y = cy + Math.sin(angle) * radius;
-//             // Brighter core, fade outwards
-//             const alpha = 0.8 - t * 0.7 + (Math.random() - 0.5) * 0.1;
-//             ctx.fillStyle = `rgba(${210 + Math.floor(Math.random()*35)},${210 + Math.floor(Math.random()*35)},255,${alpha})`;
-//             ctx.beginPath();
-//             ctx.arc(x, y, 0.8 + Math.random() * 1.1, 0, Math.PI * 2);
-//             ctx.fill();
-//         }
-//     }
-// }
-
-// // Draw a spiral galaxy at the center of the canvas
-// drawSpiralGalaxy(centerX, centerY);
-
 function drawGalaxy() {
-    const arms = 4;
-    const starsPerArm = 600;
-    const radius = 200;
+    const arms = 2;
+    const starsPerArm = 800;
+    const radius = 500;
 
     for(let arm = 0; arm < arms; arm++) {
         const startAngle = (2 * Math.PI / arms) * arm;
         for(let star = 1; star < starsPerArm; star++) {
             const decalage = star / starsPerArm;
             const spiralAngle = startAngle + decalage * 4.5 * Math.PI;
-            const armSpread = 0.2;
+            const armSpread = 0.7;
             const angle = spiralAngle + (Math.random() - 0.5) * armSpread;
             const distanceFromCenter = radius / starsPerArm * star;
 
-            const randomness = decalage * 1;
+            const randomness = decalage * 120;
             const x = centerX + distanceFromCenter * Math.cos(angle) + (Math.random() - 0.5) * randomness;
             const y = centerY + distanceFromCenter * Math.sin(angle) + (Math.random() - 0.5) * randomness;
 
             const alpha = 1 - decalage;
 
-            ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+            // Randomly choose star color: white, blue, or orange/red
+            let color = `rgba(255, 255, 255, ${alpha})`
+            ctx.save();
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 10;
+            ctx.fillStyle = color;
             ctx.beginPath();
             ctx.arc(x, y, 0.8 + Math.random() * 1.1, 0, Math.PI * 2);
             ctx.fill();
+            ctx.restore();
         }
     }
+
+    const coreRadius = 300;
+    const coreGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, coreRadius);
+    coreGradient.addColorStop(0, 'rgb(255, 255, 255)');
+    coreGradient.addColorStop(0.1, 'rgba(255, 219, 177, 0.8)');
+    coreGradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.6)');
+    coreGradient.addColorStop(0.4, 'rgba(255, 249, 240, 0.3)');
+    coreGradient.addColorStop(0.6, 'rgba(180,180,255,0.2)');
+    coreGradient.addColorStop(0.8, 'rgba(180,180,255,0.1)');
+    coreGradient.addColorStop(1, 'rgba(100,100,150,0)');
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, coreRadius, 0, Math.PI * 2);
+    ctx.fillStyle = coreGradient;
+    ctx.fill();
+
+    ctx.font = "90px serif";
+    ctx.fillStyle = "rgb(255, 255, 255)";
+    ctx.fillText("INTER   TELLAR", centerX - 300, centerY + 30);
 }
 
 drawGalaxy();
