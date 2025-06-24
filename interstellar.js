@@ -1,3 +1,5 @@
+const title = document.getElementById('title');
+
 const galaxyCanvas = document.getElementById('galaxyCanvas');
 const backgroundCanvas = document.getElementById('backgroundCanvas');
 const blackholeCanvas = document.getElementById('blackholeCanvas');
@@ -129,7 +131,7 @@ let galaxyParticles = [];
 function createGalaxyExplosion() {
     galaxyParticles = [];
     const arms = 2;
-    const starsPerArm = 2500;
+    const starsPerArm = 800;
     const radius = 800;
 
     for (let arm = 0; arm < arms; arm++) {
@@ -247,6 +249,7 @@ function animateGalaxyExplosion() {
         galaxyCtx.clearRect(0, 0, galaxyWidth, galaxyHeight);
         backgroundCtx.clearRect(0, 0, w, h);
         blackholeCtx.clearRect(0, 0, w, h);
+        title.innerText = 'INTERSTELLAR II';
     }
 }
 
