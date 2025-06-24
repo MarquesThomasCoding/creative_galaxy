@@ -51,7 +51,7 @@ function drawBackgroundStars() {
     }
 }
 
-// Couleurs de galaxie disponibles
+
 const galaxyColors = [
     { name: 'Blanc', color: 'rgba(255,255,255,1)' },
     { name: 'Bleu', color: 'rgba(100,180,255,1)' },
@@ -61,7 +61,7 @@ const galaxyColors = [
 ];
 let currentGalaxyColor = galaxyColors[0].color;
 
-// Création du sélecteur de couleur
+
 const colorPicker = document.querySelector('.colorPicker')
 
 galaxyColors.forEach(({ color, name }) => {
@@ -78,7 +78,6 @@ galaxyColors.forEach(({ color, name }) => {
 });
 document.body.appendChild(colorPicker);
 
-// Adapter drawGalaxy pour utiliser la couleur dynamique (centre blanc)
 function drawGalaxy() {
     for(let arm = 0; arm < nbArms; arm++) {
         const startAngle = (2 * Math.PI / nbArms) * arm;
@@ -94,7 +93,7 @@ function drawGalaxy() {
 
             const alpha = 1 - decalage;
 
-            // Seule la couleur des bras change
+        
             let color = currentGalaxyColor.replace('1)', alpha + ')');
             galaxyCtx.save();
             galaxyCtx.shadowColor = color;
@@ -107,7 +106,6 @@ function drawGalaxy() {
         }
     }
 
-    // Centre et dégradé restent blancs
     const coreRadius = 500;
     const coreGradient = galaxyCtx.createRadialGradient(galaxyCenter, centerY, 0, galaxyCenter, centerY, coreRadius);
     coreGradient.addColorStop(0, 'rgb(255, 255, 255)');
