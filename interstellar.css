@@ -70,3 +70,25 @@ button:hover {
   background-color: rgba(255, 255, 255, 1);
   transform: translateY(-2px);
 }
+
+.colorPicker {
+  position: fixed;
+  top: 60px;
+  right: 24px;
+  display: flex;
+  gap: 12px;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.color-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid white;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
