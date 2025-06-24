@@ -46,6 +46,17 @@ canvas {
   margin-bottom: 20px;
 }
 
+.subtitle {
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  transform: translateY(100%);
+  font-size: 24px;
+  font-weight: 400;
+  color: white;
+  margin-bottom: 20px;
+}
+
 form {
   position: absolute;
   top: 0;

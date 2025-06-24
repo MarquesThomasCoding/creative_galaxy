@@ -1,4 +1,5 @@
 const title = document.getElementById('title');
+const subtitle = document.getElementById('subtitle');
 
 const galaxyCanvas = document.getElementById('galaxyCanvas');
 const backgroundCanvas = document.getElementById('backgroundCanvas');
@@ -260,12 +261,6 @@ function animateGalaxyExplosion() {
     backgroundCtx.fillRect(0, 0, w, h);
     backgroundCtx.restore();
 
-    blackholeCtx.save();
-    blackholeCtx.globalAlpha = 0.1;
-    blackholeCtx.fillStyle = 'black';
-    blackholeCtx.fillRect(0, 0, w, h);
-    blackholeCtx.restore();
-
     drawCoreExpansion();
     drawGalaxyExplosion();
     updateCoreExpansion();
@@ -276,8 +271,8 @@ function animateGalaxyExplosion() {
     } else {
         galaxyCtx.clearRect(0, 0, galaxyWidth, galaxyHeight);
         backgroundCtx.clearRect(0, 0, w, h);
-        blackholeCtx.clearRect(0, 0, w, h);
         title.innerText = 'INTERSTELLAR II';
+        subtitle.innerText = 'Coming soon...';
     }
 }
 
