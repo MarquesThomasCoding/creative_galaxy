@@ -254,3 +254,79 @@ function initiateExplosion() {
     createGalaxyExplosion();
     animateGalaxyExplosion();
 }
+
+let cursorAngle = 0;
+let mouseX = centerX;
+let mouseY = centerY;
+let lastMouseX = centerX;
+let lastMouseY = centerY;
+
+
+const spaceshipCursor = document.createElement('img');
+spaceshipCursor.src = 'spaceship_small.png';
+spaceshipCursor.id = 'spaceship-cursor';
+spaceshipCursor.style.position = 'fixed';
+spaceshipCursor.style.pointerEvents = 'none';
+spaceshipCursor.style.zIndex = '1000';
+spaceshipCursor.style.left = centerX + 'px';
+spaceshipCursor.style.top = centerY + 'px';
+spaceshipCursor.style.width = '32px';
+spaceshipCursor.style.height = '32px';
+document.body.appendChild(spaceshipCursor);
+
+document.body.style.cursor = 'none';
+
+
+function createTrailDot(x, y, angleDeg) {
+    const angleRad = (angleDeg - 90) * Math.PI / 180;
+    const distance = 20;
+    for (let i = 0; i < 3; i++) { 
+        const extraDist = distance + i * 4 + Math.random() * 2; 
+        const backX = x - Math.cos(angleRad) * extraDist;
+        const backY = y - Math.sin(angleRad) * extraDist;
+        const dot = document.createElement('div');
+        dot.className = 'spaceship-trail-smoke';
+        dot.style.position = 'fixed';
+        const offsetX = (Math.random() - 0.5) * 4;
+        const offsetY = (Math.random() - 0.5) * 4;
+        const size = 10 + Math.random() * 6;
+        dot.style.left = (backX - size/2 + offsetX) + 'px';
+        dot.style.top = (backY - size/2 + offsetY) + 'px';
+        dot.style.width = size + 'px';
+        dot.style.height = size + 'px';
+        dot.style.borderRadius = '50%';
+        dot.style.background = 'rgba(255,255,255,0.12)';
+        dot.style.pointerEvents = 'none';
+        dot.style.zIndex = '999';
+        dot.style.filter = 'blur(4px)';
+        dot.style.transition = 'opacity 1.2s linear';
+        dot.style.opacity = '1';
+        document.body.appendChild(dot);
+        setTimeout(() => {
+            dot.style.opacity = '0';
+            setTimeout(() => dot.remove(), 1200);
+        }, 1200);
+    }
+}
+
+function updateSpaceshipCursor() {
+    createTrailDot(mouseX, mouseY, cursorAngle);
+    spaceshipCursor.style.left = (mouseX - spaceshipCursor.width/2) + 'px';
+    spaceshipCursor.style.top = (mouseY - spaceshipCursor.height/2) + 'px';
+    spaceshipCursor.style.transform = `rotate(${cursorAngle}deg)`;
+}
+
+updateSpaceshipCursor();
+
+window.addEventListener('mousemove', (e) => {
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    const dx = mouseX - lastMouseX;
+    const dy = mouseY - lastMouseY;
+    if (dx !== 0 || dy !== 0) {
+        cursorAngle = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+    }
+    updateSpaceshipCursor();
+});
