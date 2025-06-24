@@ -3,10 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Black Hole Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Space+Grotesk:wght@300..700&family=Titillium+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="interstellar.css">
 </head>
 <body>
+  <h2 class="title">INTERSTELLAR</h2>
+  <canvas id="backgroundCanvas"></canvas>
   <canvas id="blackholeCanvas"></canvas>
+  <canvas id="galaxyCanvas"></canvas>
+  <div class="btn-container">
+    <button onclick="initiateExplosion()">💥 Initiate Explosion</button>
+    <button onclick="window.location.reload()">Reload</button>
+  </div>
   <script src="interstellar.js"></script>
 </body>
 </html>
