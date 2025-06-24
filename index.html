@@ -13,6 +13,27 @@
   <canvas id="backgroundCanvas"></canvas>
   <canvas id="blackholeCanvas"></canvas>
   <canvas id="galaxyCanvas"></canvas>
+  <form>
+    <label for="nbStars">Number of stars</label>
+    <input onchange="updateGalaxyParameters(); nbStarsValue.textContent = nbStars.value;" type="range" name="nbStars" id="nbStars" min="0" max="3000" value="1000" step="200">
+    <span id="nbStarsValue">1000</span>
+
+    <label for="nbArms">Number of arms</label>
+    <input onchange="updateGalaxyParameters(); nbArmsValue.textContent = nbArms.value;" type="range" name="nbArms" id="nbArms" min="0" max="8" value="2" step="1">
+    <span id="nbArmsValue">2</span>
+    
+    <label for="starsPerArm">Stars per arm</label>
+    <input onchange="updateGalaxyParameters(); starsPerArmValue.textContent = starsPerArm.value;" type="range" name="starsPerArm" id="starsPerArm" min="0" max="3000" value="2500" step="100">
+    <span id="starsPerArmValue">2500</span>
+
+    <label for="galaxyRadius">Galaxy radius</label>
+    <input onchange="updateGalaxyParameters(); galaxyRadiusValue.textContent = galaxyRadius.value;" type="range" name="galaxyRadius" id="galaxyRadius" min="0" max="1000" value="800" step="100">
+    <span id="galaxyRadiusValue">800</span>
+
+    <label for="armSpread">Arm spread</label>
+    <input onchange="updateGalaxyParameters(); armSpreadValue.textContent = armSpread.value;" type="range" name="armSpread" id="armSpread" min="0" max="3" value="1.5" step="0.1">
+    <span id="armSpreadValue">1.5</span>
+  </form>
   <div class="btn-container">
     <button onclick="initiateExplosion()">💥 Initiate Explosion</button>
     <button onclick="window.location.reload()">Reload</button>

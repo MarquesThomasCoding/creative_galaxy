@@ -46,6 +46,21 @@ canvas {
   margin-bottom: 20px;
 }
 
+form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: black;
+  color: white;
+  padding: 20px;
+  font-size: 12px;
+  font-family: 'Arial', sans-serif;
+}
+
 .btn-container {
   position: fixed;
   bottom: 20px;

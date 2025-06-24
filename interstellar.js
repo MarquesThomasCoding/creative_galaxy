@@ -25,13 +25,18 @@ let galaxyCenter = galaxyWidth / 4;
 let centerX = blackholeWidth / 2;
 let centerY = blackholeHeight / 2;
 
+let nbStars = 1000;
+let nbArms = 2;
+let starsPerArm = 2500;
+let galaxyRadius = 800;
+let armSpread = 1.5;
+
 galaxyCtx.clearRect(0, 0, galaxyWidth, galaxyHeight);
 backgroundCtx.clearRect(0, 0, w, h);
 blackholeCtx.clearRect(0, 0, w, h);
 
 function drawBackgroundStars() {
-    const starsCount = 1000;
-    for (let i = 0; i < starsCount; i++) {
+    for (let i = 0; i < nbStars; i++) {
         const x = Math.random() * w;
         const y = Math.random() * h;
         const alpha = Math.random();
@@ -75,18 +80,13 @@ document.body.appendChild(colorPicker);
 
 // Adapter drawGalaxy pour utiliser la couleur dynamique (centre blanc)
 function drawGalaxy() {
-    const arms = 2;
-    const starsPerArm = 2500;
-    const radius = 800;
-
-    for(let arm = 0; arm < arms; arm++) {
-        const startAngle = (2 * Math.PI / arms) * arm;
+    for(let arm = 0; arm < nbArms; arm++) {
+        const startAngle = (2 * Math.PI / nbArms) * arm;
         for(let star = 1; star < starsPerArm; star++) {
             const decalage = star / starsPerArm;
             const spiralAngle = startAngle + decalage * 4.5 * Math.PI;
-            const armSpread = 1.5;
             const angle = spiralAngle + (Math.random() - 0.5) * armSpread;
-            const distanceFromCenter = radius / starsPerArm * star;
+            const distanceFromCenter = galaxyRadius / starsPerArm * star;
 
             const randomness = decalage * 120;
             const x = galaxyCenter + distanceFromCenter * Math.cos(angle) + (Math.random() - 0.5) * randomness;
@@ -363,3 +363,16 @@ window.addEventListener('mousemove', (e) => {
     }
     updateSpaceshipCursor();
 });
+
+function updateGalaxyParameters() {
+    nbStars = document.getElementById('nbStars').value;
+    nbArms = document.getElementById('nbArms').value;
+    starsPerArm = document.getElementById('starsPerArm').value;
+    galaxyRadius = document.getElementById('galaxyRadius').value;
+    armSpread = document.getElementById('armSpread').value;
+
+    galaxyCtx.clearRect(0, 0, galaxyWidth, galaxyHeight);
+    backgroundCtx.clearRect(0, 0, w, h);
+    drawBackgroundStars();
+    drawGalaxy();
+}
